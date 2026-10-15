@@ -1,0 +1,37 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:03.000
+The helper observes the scene and waits for evidence that assistance is needed.
+
+2
+00:00:03.000 --> 00:00:05.400
+The homeowner reaches for the wineglass but does not obtain it.
+
+3
+00:00:05.400 --> 00:00:09.900
+The unmet goal is to obtain the wineglass; the reaching attempt indicates a need for help.
+
+4
+00:00:09.900 --> 00:00:16.900
+The helper selects an action that directly addresses the inferred goal.
+
+5
+00:00:16.900 --> 00:00:20.400
+The helper walks to the counter to retrieve the wineglass.
+
+6
+00:00:20.400 --> 00:00:22.667
+The wineglass moves from the counter to the helper.
+
+7
+00:00:22.667 --> 00:00:25.867
+The helper returns with the wineglass.
+
+8
+00:00:25.867 --> 00:00:32.533
+The helper hands the wineglass to the homeowner.
+
+9
+00:00:32.533 --> 00:00:36.533
+The handover provides feedback for the next observation and state update.

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="MindHelper: Closed-Loop Embodied Mental-State Reasoning for Precision Intervention">
+<meta name="theme-color" content="#ffffff">
+<title>MindHelper: Closed-Loop Embodied Mental-State Reasoning for Precision Intervention</title>
+<style>
+@font-face{font-family:Inter;src:url('assets/fonts/Inter.ttf') format('truetype');font-weight:100 900;font-style:normal;font-display:swap}
+:root{color-scheme:light;--ink:#172033;--muted:#5b6575;--line:#e2e6ed;--accent:#2563eb;--purple:#7c3aed}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:#f9fafb;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,.table-scroll:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.page{max-width:1216px;padding:35px 32px 32px;margin:0 auto}
+.paper-header{text-align:center;padding-bottom:24px}
+h1{font-size:clamp(29px,3.1vw,45px);font-weight:800;line-height:1.15;letter-spacing:-1.25px;max-width:1140px;margin:0 auto 20px}
+.gradient-text{background:linear-gradient(90deg,#2563eb,#7c3aed);background-clip:text;-webkit-background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.authors{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 22px;font-size:17px;line-height:1.6;margin-bottom:10px;font-weight:400;color:#303b4e}
+sup{font-size:10px;margin-left:2px;color:var(--muted)}
+.affiliations{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 23px;font-size:13px;line-height:1.5;color:var(--muted)}
+.corresponding{font-size:11px;color:var(--muted);margin:6px 0 0}
+.paper-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:19px;font-size:13px;font-weight:600}
+.paper-nav a{display:inline-flex;align-items:center;justify-content:center;padding:9px 18px;border:1px solid #d8dee8;border-radius:999px;text-decoration:none;background:#fff;color:#344056;min-height:38px;transition:background .15s,border-color .15s}
+.paper-nav a:hover{background:#eef3ff;border-color:#b9c8e8}.paper-nav .paper-link{color:#fff;background:#0f172a;border-color:#0f172a;box-shadow:0 2px 6px #0f172a14}.paper-nav .paper-link:hover{background:#28364c;border-color:#28364c}
+h2{font-size:27px;font-weight:700;line-height:1.3;letter-spacing:-.5px;margin:0 0 18px;border-left:4px solid var(--accent);padding-left:14px}
+p{font-size:15px;line-height:1.8;margin:0;color:#475569}
+.videos{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px #0f172a06;padding:20px 20px 10px;margin:0}
+.videos h2{font-size:22px;margin-bottom:14px}
+.overview{padding-top:38px}
+.overview section+section{margin-top:38px}
+#dataset h2,.experiments h2{border-left-color:var(--purple)}
+.dataset-facts{display:flex;flex-wrap:wrap;gap:9px;padding:15px 0 0;margin:0;font-size:12px;list-style:none;color:#526078}
+.dataset-facts li{background:#fff;border:1px solid var(--line);border-radius:6px;padding:6px 11px}.dataset-facts strong{color:var(--ink);font-weight:700}
+.tasks{margin:12px 0 0;padding-left:19px;color:#526078;font-size:13px;line-height:1.9}
+.dataset-figure,.method-figure{margin:22px 0 0;background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 4px 15px #0f172a05;padding:10px}
+.dataset-figure img,.method-figure img{width:100%;height:auto;display:block;border-radius:8px}
+.dataset-figure a{display:block;cursor:zoom-in}
+figcaption{color:var(--muted);font-size:12px;line-height:1.6;padding:2px 8px 4px;margin-top:9px}
+.experiments{padding-top:38px;margin-top:0}
+.section-caption{font-size:13px;line-height:1.75;margin:0 0 16px;color:var(--muted)}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:#fff;box-shadow:0 3px 12px #0f172a04}
+table{width:100%;border-collapse:collapse;min-width:790px;font-size:13px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 12px;text-align:right;white-space:nowrap}
+th:first-child{text-align:left}thead{background:#f0f3f8;color:#37445b}
+thead th{font-weight:600}thead tr:first-child th{padding-top:14px;padding-bottom:7px;font-size:11px}thead tr:last-child th{padding-top:6px;padding-bottom:12px;border-bottom:1px solid #d9e0ea}
+tbody th{font-weight:500}tbody td{border-bottom:1px solid #f0f2f5}
+.group th{color:#536077;font-size:11px;font-weight:600;background:#f7f8fb;padding:11px 12px 8px;border-top:1px solid var(--line)}
+.group:first-child th{border-top:0}.ours th,.ours td{font-weight:700;padding-top:12px;padding-bottom:12px;background:#eaf0fc;color:#1e4285}
+abbr{text-decoration:none;cursor:help}
+.table-note{font-size:11px;line-height:1.7;margin-top:12px;color:var(--muted)}
+footer{border-top:1px solid var(--line);margin-top:36px;padding-top:17px;display:flex;justify-content:space-between;gap:16px;font-size:11px;line-height:1.6;color:var(--muted)}footer a{color:var(--muted);text-decoration:none}footer a:hover{text-decoration:underline}
+.embed .page{padding:22px 8px 18px}
+@media(max-width:760px){.page{padding:25px 16px}h1{font-size:29px;letter-spacing:-.65px;line-height:1.19;margin-bottom:17px}.authors{font-size:14px;gap:5px 14px}.affiliations{font-size:11px;gap:4px 12px}.corresponding{font-size:10px}.paper-nav{font-size:12px;gap:8px;margin-top:16px}.paper-nav a{padding:8px 13px;min-height:35px}.paper-header{padding-bottom:21px}h2{font-size:23px;margin-bottom:15px}p{font-size:14px}.videos{padding:15px 11px 6px;border-radius:12px}.videos h2{font-size:20px}.overview{padding-top:29px}.overview section+section{margin-top:29px}.experiments{padding-top:29px}.dataset-facts,.tasks{font-size:12px}.dataset-figure,.method-figure{padding:5px;border-radius:12px}.table-note{font-size:10px}footer{margin-top:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.paper-nav a{transition:none}}
+
+.premise{margin:0 0 28px}
+.pf-cap{font-size:16px;line-height:1.7;color:#334155;margin:0 0 14px;max-width:880px}.pf-cap em{font-style:normal;color:var(--accent);font-weight:600}
+.pfilm{margin:0;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px #0f172a06;padding:12px}
+.pf-frame{position:relative;border-radius:10px;overflow:hidden;background:#f9fafb;aspect-ratio:16/9}
+.pf-frame video,.pf-frame img{display:block;width:100%;height:100%;object-fit:contain}
+.pf-tap{position:absolute;inset:0;border:0;background:transparent;cursor:pointer;display:grid;place-items:center}
+.pf-cue{width:64px;height:64px;border-radius:50%;background:#0f172acc;color:#fff;display:grid;place-items:center;opacity:0;transition:opacity .2s}.pf-cue svg{width:24px;height:24px;margin-left:3px}
+.pf-frame.is-paused .pf-cue{opacity:1}
+.pf-sub{position:absolute;left:50%;bottom:5.5%;transform:translateX(-50%);max-width:88%;text-align:center;pointer-events:none;opacity:0;transition:opacity .25s}
+.pf-sub.is-on{opacity:1}.pf-sub span{display:inline-block;background:#0f172ae0;color:#fff;font-size:clamp(13px,1.45vw,18px);font-weight:500;line-height:1.45;padding:7px 14px;border-radius:8px}
+.pf-line{position:absolute;left:0;right:0;bottom:0;height:3px;background:#e2e6ed}.pf-line i{display:block;height:100%;width:0;background:var(--accent)}
+.pf-ctl{position:absolute;right:10px;top:10px;display:flex;gap:6px;z-index:2}.pf-btn{font:600 11px Inter,sans-serif;border:1px solid #d8dee8;background:#ffffffe6;color:#344056;border-radius:999px;padding:6px 11px;cursor:pointer}.pf-btn[aria-pressed="true"]{background:#0f172a;color:#fff;border-color:#0f172a}
+.pf-legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:12px 4px 2px;font-size:12px;color:var(--muted)}.pf-legend b{color:var(--ink);font-weight:600}
+@media(max-width:760px){.pf-cap{font-size:14px}.pfilm{padding:6px;border-radius:12px}}
+.overview{padding-top:10px}
+.comparison,.example{margin-top:38px}
+.comparison h2{border-left-color:var(--accent)}
+.cmp-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.cmp-tab{font:600 13px Inter,sans-serif;border:1px solid #d8dee8;background:#fff;color:#344056;border-radius:999px;padding:9px 16px;cursor:pointer}
+.cmp-tab span{color:var(--muted);margin-right:4px}.cmp-tab[aria-selected="true"]{background:#0f172a;border-color:#0f172a;color:#fff}.cmp-tab[aria-selected="true"] span{color:#cbd5e1}
+.cmp-legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--muted);margin:0 2px 12px}.cmp-legend span{display:inline-flex;align-items:center;gap:7px}
+.lg{display:inline-block;width:14px;height:14px;border-radius:50%}.lg.silent{border:2px solid #94a3b8;background:#fff}.lg.act.ok{background:var(--accent)}.lg.act.bad{background:#dc2626}.lg.need{border-radius:4px;background:#fef2d4;border:1px solid #f2b543}
+.cmp-card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px #0f172a06;padding:18px;overflow-x:auto}
+.cmp-grid{display:grid;grid-template-columns:150px repeat(var(--n),minmax(92px,1fr)) minmax(250px,1.6fr);min-width:calc(150px + var(--n)*92px + 250px);position:relative}
+.cmp-lane{display:contents}
+.cmp-lane>*{padding:10px 6px;border-bottom:1px solid #edf0f4;display:flex;align-items:center;justify-content:center;position:relative}
+.cmp-lane:last-child>*{border-bottom:0}
+.cmp-model{flex-direction:column;align-items:flex-start!important;justify-content:center!important;text-align:left;padding-left:2px!important}
+.cmp-model strong{font-size:13px;font-weight:700;color:var(--ink)}.cmp-model span{font-size:11px;line-height:1.45;color:var(--muted);margin-top:3px}
+.is-ours .cmp-model strong{color:var(--accent)}
+.cmp-obs>*{align-items:flex-start}
+.cmp-frame{margin:0;flex-direction:column;gap:6px;align-items:stretch!important}
+.cmp-frame img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border:1px solid var(--line);display:block}
+.cmp-frame figcaption{font-size:10.5px;line-height:1.4;color:#526078;padding:0;margin:0;text-align:left}
+.cmp-frame.need figcaption{color:#7d5216;font-weight:600}
+.cmp-result-head{font:600 11px Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);align-items:flex-end!important}
+/* time lane: a line through the step cells, a dot per step */
+.cmp-step::before{content:"";position:absolute;left:0;right:0;top:50%;height:2px;background:#cbd5e1}
+.cmp-dot{position:relative;width:16px;height:16px;border-radius:50%;border:2px solid #94a3b8;background:#fff;z-index:1}
+.cmp-step.act .cmp-dot{width:24px;height:24px;border:0;background:var(--accent);box-shadow:0 0 0 5px #2563eb22}
+.cmp-step.act.bad .cmp-dot{background:#dc2626;box-shadow:0 0 0 5px #dc262622}
+.cmp-step.act .cmp-dot::after{content:"";position:absolute;inset:7px;border-radius:50%;background:#fff}
+.cmp-step.after::before{background:repeating-linear-gradient(90deg,#fca5a5 0 6px,transparent 6px 11px)}
+.cmp-step.after .cmp-dot{display:none}
+.cmp-step.act::after{content:"";position:absolute;right:0;top:50%;width:50%;height:2px;background:currentColor;color:var(--accent)}
+.cmp-step.act.bad::after{color:#dc2626}
+.cmp-result{justify-content:flex-start!important;flex-direction:column;align-items:stretch!important;gap:7px;padding-left:16px!important}
+.cmp-imgs{display:flex;gap:5px}.cmp-imgs img:only-child{flex:0 0 calc(50% - 2.5px)}.cmp-imgs img{flex:1;min-width:0;aspect-ratio:16/9;object-fit:cover;border-radius:6px;border:1px solid var(--line)}
+.is-bad .cmp-imgs img{border-color:#fecaca}.is-ours .cmp-imgs img{border-color:#bfdbfe}
+.cmp-badges{display:flex;flex-wrap:wrap;gap:5px}
+.cmp-badge{font-size:11px;font-weight:600;border-radius:999px;padding:3px 9px}.cmp-badge.ok{background:#e7f6ec;color:#15803d}.cmp-badge.bad{background:#fdecec;color:#b91c1c}
+.is-ours>*{background:#f5f8ff}
+/* the column where help is needed, drawn through every lane */
+.cmp-grid .need-col{background:#fff8e6!important}
+.cmp-note{font-size:13px;line-height:1.75;color:#475569;margin:14px 2px 0}.cmp-note b{color:var(--ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media(max-width:760px){.cmp-card{padding:10px}.cmp-tab{font-size:12px;padding:8px 12px}}
+</style>
+</head>
+<body>
+<main class="page" id="mindclaw-demo">
+<header class="paper-header" id="top">
+  <h1><span class="gradient-text">MindHelper:</span> Closed-Loop Embodied Mental-State Reasoning for Precision Intervention</h1>
+  <div class="authors"><span>Ruoxuan Zhang<sup>1</sup></span> <span>Zhengguang Wang<sup>1</sup></span> <span>Qiaoqiao Wan<sup>1</sup></span> <span>Chenghao Yu<sup>1</sup></span> <span>Hongxia Xie<sup>1</sup></span> <span>Wen-Huang Cheng<sup>2</sup></span> <span>Jianlong Fu<sup>3</sup></span></div>
+  <div class="affiliations"><span><sup>1</sup> Jilin University</span><span><sup>2</sup> National Taiwan University</span><span><sup>3</sup> Microsoft Asia</span></div>
+  <p class="corresponding">Corresponding author: Hongxia Xie.</p>
+  <nav class="paper-nav" aria-label="Paper sections"><a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener">Paper ↗</a><a href="#premise">Overview</a><a href="#dataset">Dataset</a><a href="#method">Method</a><a href="#experiments">Experiments</a><a href="#comparison">Comparison</a><a href="#videos">Example</a></nav>
+</header>
+<section class="premise" id="premise" aria-labelledby="premise-title">
+  <h2 id="premise-title">What is precise intervention?</h2>
+  <p class="pf-cap">A helpful robot must decide not only <em>what</em> to do, but <em>when</em>. MindClaw keeps observing and tracking beliefs, <em>stays silent</em> while help is unnecessary, and <em>intervenes with the right action</em> once it is needed.</p>
+  <figure class="pfilm">
+    <div class="pf-frame is-paused" id="pfFrame">
+      <video id="pfVideo" src="assets/precision.mp4" poster="assets/precision-poster.jpg" muted loop playsinline preload="metadata" aria-label="Short film: precise intervention. Keep silent until help is needed, then act."></video>
+      <button class="pf-tap" id="pfTap" type="button" aria-label="Play"><span class="pf-cue" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 5.6 18.4 12 9 18.4z"/></svg></span></button>
+      <div class="pf-ctl"><button class="pf-btn" id="pfGif" type="button" aria-pressed="false" title="Show as animated image">GIF</button><button class="pf-btn" id="pfLoop" type="button" aria-pressed="true">Loop</button></div>
+      <div class="pf-sub" id="pfSub" aria-live="polite"><span></span></div>
+      <div class="pf-line" aria-hidden="true"><i id="pfFill"></i></div>
+    </div>
+    <figcaption class="pf-legend"><span><b>&#x29B8;</b> keep silent</span><span><b>&#x2601;</b> belief inference</span><span><b>&#x270B;</b> take action</span><span>Illustration adapted from Fig. 1 of the paper.</span></figcaption>
+  </figure>
+</section>
+<div class="overview">
+  <section id="dataset" aria-labelledby="dataset-title">
+    <h2 id="dataset-title">MindHelper Benchmark</h2>
+    <p>We introduce the MindHelper Benchmark, a benchmark for evaluating closed-loop precision intervention in embodied environments.</p>
+    <ul class="dataset-facts"><li><strong>590</strong> examples</li><li>VirtualHome</li><li>ThreeDWorld</li></ul>
+    <ul class="tasks"><li>False-Belief Correction</li><li>Implicit Goal Inference &amp; Completion</li></ul>
+    <figure class="dataset-figure"><a href="assets/dataset-example.png" target="_blank" rel="noopener"><img src="assets/dataset-example.png" alt="An example from MindHelper Benchmark." width="2200" height="1352"></a><figcaption>Fig. 2: An example from MindHelper Benchmark.</figcaption></figure>
+  </section>
+  <section id="method" aria-labelledby="method-title">
+    <h2 id="method-title">MindClaw</h2>
+    <p>We further propose MindClaw, a simple yet effective Claw-style framework that integrates an actor-specific Belief Table, embodied cognitive skills, and a Trigger-based cognitive dispatcher.</p>
+    <figure class="method-figure"><img src="assets/method.png" alt="Overview of the MindClaw framework." width="2000" height="781"><figcaption>Fig. 3: Overview of the MindClaw framework.</figcaption></figure>
+  </section>
+</div>
+<section class="experiments" id="experiments" aria-labelledby="experiments-title">
+  <h2 id="experiments-title">Experiments</h2>
+  <p class="section-caption">Comparison with existing models on action execution, precision intervention, and mental-state reasoning.</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Table III: Comparison with existing models">
+  <table>
+    <thead><tr><th rowspan="2" scope="col">Model</th><th colspan="3" scope="colgroup">Action Execution</th><th colspan="3" scope="colgroup">Precision Intervention</th><th scope="colgroup">Mental-State Reasoning</th></tr><tr><th scope="col"><abbr title="Task Accuracy">TA</abbr> ↑</th><th scope="col"><abbr title="Success Rate">SR</abbr> ↑</th><th scope="col"><abbr title="Action Correctness">AC</abbr> ↑</th><th scope="col"><abbr title="Timely Intervention Rate">TIR</abbr> ↑</th><th scope="col"><abbr title="Precise Silence Rate">PSR</abbr> ↑</th><th scope="col"><abbr title="Precision Intervention Accuracy">PIA</abbr> ↑</th><th scope="col"><abbr title="Mental Accuracy">MA</abbr> ↑</th></tr></thead>
+    <tbody><tr class="group"><th colspan="8" scope="colgroup">Closed-Source Multimodal Models</th></tr>
+<tr><th scope="row">GPT-5.4</th><td>3.80</td><td>2.83</td><td>3.29</td><td>10.59</td><td>99.51</td><td>55.05</td><td>0.98</td></tr>
+<tr><th scope="row">Gemini 3.1 Pro</th><td>2.25</td><td>0.00</td><td>0.00</td><td>0.00</td><td>86.61</td><td>43.31</td><td>0.96</td></tr>
+<tr class="group"><th colspan="8" scope="colgroup">Open-Source Multimodal Models</th></tr>
+<tr><th scope="row">Qwen3-VL-30B</th><td>0.00</td><td>0.47</td><td>0.68</td><td>12.05</td><td>94.27</td><td>53.16</td><td>0.30</td></tr>
+<tr><th scope="row">Qwen3-VL-8B</th><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>99.96</td><td>49.98</td><td>0.00</td></tr>
+<tr><th scope="row">Qwen3-VL-4B</th><td>0.00</td><td>0.15</td><td>0.21</td><td>2.30</td><td>99.89</td><td>51.10</td><td>–</td></tr>
+<tr><th scope="row">InternVL3.5-8B</th><td>0.00</td><td>0.00</td><td>0.00</td><td>1.14</td><td>99.87</td><td>50.50</td><td>0.12</td></tr>
+<tr><th scope="row">MindPower</th><td>0.72</td><td>0.67</td><td>0.72</td><td>2.90</td><td>100.00</td><td>51.45</td><td>1.03</td></tr>
+<tr class="group"><th colspan="8" scope="colgroup">Video Reasoning Models</th></tr>
+<tr><th scope="row">Video-R1</th><td>0.00</td><td>0.18</td><td>0.25</td><td>12.00</td><td>99.31</td><td>55.66</td><td>0.75</td></tr>
+<tr><th scope="row">OneThinker</th><td>0.00</td><td>0.00</td><td>0.00</td><td>0.00</td><td>100.00</td><td>50.00</td><td>–</td></tr>
+<tr><th scope="row">VideoAuto-R1</th><td>0.00</td><td>0.15</td><td>0.22</td><td>7.14</td><td>94.80</td><td>50.97</td><td>0.60</td></tr>
+<tr class="group"><th colspan="8" scope="colgroup">Claw-Based Methods</th></tr>
+<tr><th scope="row">RoboClaw</th><td>0.00</td><td>0.00</td><td>0.00</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr><th scope="row">ABot-Claw</th><td>1.12</td><td>0.26</td><td>0.22</td><td>-</td><td>-</td><td>-</td><td>-</td></tr>
+<tr class="group"><th colspan="8" scope="colgroup">Our Method</th></tr>
+<tr class="ours"><th scope="row">MindClaw</th><td>14.36</td><td>4.12</td><td>5.88</td><td>35.71</td><td>99.90</td><td>67.81</td><td>2.94</td></tr></tbody>
+  </table>
+  </div>
+  <p class="table-note">TA, SR, AC, TIR, PSR, and PIA are reported as percentages, while MA is reported on a [0,5] scale. “–” indicates that the model produces no mental-state reasoning output; “-” indicates that a score is not yet available. Claw-based methods are evaluated on 89 reference-aligned episodes.</p>
+</section>
+<section class="comparison" id="comparison" aria-labelledby="comparison-title">
+  <h2 id="comparison-title">Model Comparison</h2>
+  <p class="section-caption">The same observation stream is given to every model. Each lane shows, step by step, whether the model keeps silent or intervenes, and what it then does. The highlighted column marks the moment help is actually needed.</p>
+  <div class="cmp-tabs" role="tablist" aria-label="Select a comparison">
+    <button class="cmp-tab" id="cmp-tab-a" role="tab" aria-selected="true" aria-controls="cmp-a" type="button"><span>(a)</span> Implicit goal inference &amp; completion</button>
+    <button class="cmp-tab" id="cmp-tab-b" role="tab" aria-selected="false" aria-controls="cmp-b" type="button" tabindex="-1"><span>(b)</span> False-belief correction</button>
+  </div>
+  <div class="cmp-legend" aria-hidden="true"><span><i class="lg silent"></i>Keep silent</span><span><i class="lg act ok"></i>Intervene at the right moment</span><span><i class="lg act bad"></i>Intervene too early</span><span><i class="lg need"></i>Help is needed</span></div>
+  <div class="cmp-card">
+  <div class="cmp-case" id="cmp-a" role="tabpanel" aria-labelledby="cmp-tab-a" style="--n:3">
+    <div class="cmp-grid">
+      <div class="cmp-lane cmp-obs">
+        <div class="cmp-model"><strong>Observation</strong><span>same video for all models</span></div>
+        <figure class="cmp-frame"><img src="assets/compare/a_obs1.jpg" alt="Homeowner in a wheelchair reaches toward the counter"><figcaption>Reaches for the wine glass</figcaption></figure>
+        <figure class="cmp-frame"><img src="assets/compare/a_obs2.jpg" alt="The homeowner lowers the arm"><figcaption>Cannot reach it</figcaption></figure>
+        <figure class="cmp-frame need"><img src="assets/compare/a_obs3.jpg" alt="The homeowner reaches again"><figcaption>Reaches again: help is needed</figcaption></figure>
+        <div class="cmp-result cmp-result-head">Decision &amp; action</div>
+      </div>
+      <div class="cmp-lane is-bad">
+        <div class="cmp-model"><strong>GPT-5.4</strong><span>“Remain silent and take no action.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/a_gpt.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge bad">No intervention ✗</span><span class="cmp-badge bad">Wrong action ✗</span></div></div>
+      </div>
+      <div class="cmp-lane is-bad">
+        <div class="cmp-model"><strong>Qwen3-VL-30B</strong><span>“Put the wine glass in the refrigerator.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step act ok"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Intervene</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/a_qwen1.jpg" alt="" loading="lazy"><img src="assets/compare/a_qwen2.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge ok">Precise intervention ✓</span><span class="cmp-badge bad">Wrong action ✗</span></div></div>
+      </div>
+      <div class="cmp-lane is-ours">
+        <div class="cmp-model"><strong>MindClaw</strong><span>“Give the cup to the homeowner.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step act ok"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Intervene</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/a_ours1.jpg" alt="" loading="lazy"><img src="assets/compare/a_ours2.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge ok">Precise intervention ✓</span><span class="cmp-badge ok">Right action ✓</span></div></div>
+      </div>
+    </div>
+    <p class="cmp-note"><b>Implicit Goal Inference &amp; Completion.</b> The homeowner reaches for a wine glass but cannot reach it due to physical limitations. Only MindClaw intervenes at the appropriate moment and performs the correct action by handing the glass to the homeowner. GPT-5.4 fails to intervene, while Qwen3-VL-30B intervenes but performs an incorrect action by placing the glass in the refrigerator.</p>
+  </div>
+  <div class="cmp-case" id="cmp-b" role="tabpanel" aria-labelledby="cmp-tab-b" style="--n:6" hidden>
+    <div class="cmp-grid">
+      <div class="cmp-lane cmp-obs">
+        <div class="cmp-model"><strong>Observation</strong><span>same video for all models</span></div>
+        <figure class="cmp-frame"><img src="assets/compare/b_obs1.jpg" alt="Char0 stands by the table"><figcaption>Char0 places the toothpaste on the table</figcaption></figure>
+        <figure class="cmp-frame"><img src="assets/compare/b_obs2.jpg" alt="Char0 leaves"><figcaption>…and then leaves</figcaption></figure>
+        <figure class="cmp-frame"><img src="assets/compare/b_obs3.jpg" alt="Char1 takes the toothpaste"><figcaption>Char1 takes the toothpaste</figcaption></figure>
+        <figure class="cmp-frame"><img src="assets/compare/b_obs4.jpg" alt="Char1 puts it in the cabinet"><figcaption>…and puts it into the cabinet</figcaption></figure>
+        <figure class="cmp-frame"><img src="assets/compare/b_obs5.jpg" alt="Char0 walks back"><figcaption>Char0 returns</figcaption></figure>
+        <figure class="cmp-frame need"><img src="assets/compare/b_obs6.jpg" alt="Char0 walks around the table"><figcaption>Walks around the table: help is needed</figcaption></figure>
+        <div class="cmp-result cmp-result-head">Decision &amp; action</div>
+      </div>
+      <div class="cmp-lane is-bad">
+        <div class="cmp-model"><strong>Qwen3-VL-30B</strong><span>“Take the toothpaste away.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step act bad"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Intervene too early</span></div><div class="cmp-step after"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Executing</span></div><div class="cmp-step after"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Executing</span></div><div class="cmp-step after"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Executing</span></div><div class="cmp-step after"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Executing</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/b_qwen1.jpg" alt="" loading="lazy"><img src="assets/compare/b_qwen2.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge bad">Wrong intervention ✗</span><span class="cmp-badge bad">Wrong action ✗</span></div></div>
+      </div>
+      <div class="cmp-lane is-bad">
+        <div class="cmp-model"><strong>GPT-5.4 · Gemini 3.1 Pro</strong><span>“No intervention.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/b_obs6.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge bad">No intervention ✗</span><span class="cmp-badge bad">Wrong action ✗</span></div></div>
+      </div>
+      <div class="cmp-lane is-ours">
+        <div class="cmp-model"><strong>MindClaw</strong><span>“Take the toothpaste out of the cabinet and give it to Char0.”</span></div>
+        <div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step silent"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Keep silent</span></div><div class="cmp-step act ok"><span class="cmp-dot" aria-hidden="true"></span><span class="sr">Intervene</span></div>
+        <div class="cmp-result"><div class="cmp-imgs"><img src="assets/compare/b_ours1.jpg" alt="" loading="lazy"><img src="assets/compare/b_ours2.jpg" alt="" loading="lazy"><img src="assets/compare/b_ours3.jpg" alt="" loading="lazy"></div><div class="cmp-badges"><span class="cmp-badge ok">Precise intervention ✓</span><span class="cmp-badge ok">Right action ✓</span></div></div>
+      </div>
+    </div>
+    <p class="cmp-note"><b>False-belief correction.</b> Char0 leaves the toothpaste on the table, after which Char1 moves it into a cabinet without Char0 observing the change. Qwen3-VL-30B intervenes prematurely, immediately after Char0 puts down the toothpaste and before it is relocated, and incorrectly takes it away. Later, when intervention is needed, GPT-5.4 and Gemini 3.1 Pro fail to intervene. MindClaw intervenes at the appropriate moment, retrieves the toothpaste from the cabinet, and gives it to Char0.</p>
+  </div>
+  </div>
+  <p class="table-note">Frames and model outputs from Fig. 7 of the paper.</p>
+</section>
+<section class="videos example" id="videos" aria-labelledby="videos-title">
+  <h2 id="videos-title">Example: MindClaw step by step</h2>
+  <p class="section-caption">Play an episode and inspect how each observation updates the Belief Table, the mental reasoning and the action, and when the robot keeps silent or takes action.</p>
+  <iframe id="annotated-examples" src="annotated-examples.html?embed=1" title="MindClaw annotated examples: observations, beliefs, reasoning, and actions" loading="lazy" allow="fullscreen" style="display:block;width:100%;height:950px;border:0;"></iframe>
+</section>
+<footer><span>MindHelper · MindClaw</span><a href="#top">Back to top ↑</a></footer>
+</main>
+<script>
+(() => {
+  if(new URLSearchParams(location.search).get('embed')==='1')document.body.classList.add('embed');
+  const annotatedFrame=document.getElementById('annotated-examples');
+  window.addEventListener('message',event=>{
+    if(event.source!==annotatedFrame.contentWindow)return;
+    const data=event.data;
+    if(data&&data.type==='mindclaw-demo-resize'&&Number.isFinite(data.height)&&data.height>0){
+      annotatedFrame.style.height=Math.min(8000,Math.ceil(data.height)+2)+'px';
+    }
+  });
+
+  // ---- premise film: subtitles are played by the page (edit here, no re-render needed)
+  const PRECISION_CUES=[
+    {from:0.0,to:3.0,text:'He puts the apple on the desk. Nothing is needed, so the robot keeps silent.'},
+    {from:3.0,to:6.0,text:'While he is away, someone else moves the apple into the fridge.'},
+    {from:6.0,to:8.6,text:'The robot saw the move. His belief, "on the desk", is now outdated.'},
+    {from:8.6,to:10.6,text:'Knowing is not a reason to interrupt: he does not need the apple yet.'},
+    {from:10.6,to:12.6,text:'He reaches for the desk and finds nothing. Now help is needed.'},
+    {from:12.6,to:14.8,text:'The robot acts: it takes the apple from the fridge and gives it to him.'},
+    {from:14.8,to:18.9,text:'Acting too early interrupts. Never acting fails him.'},
+    {from:18.9,to:99,text:'Keep silent until help is needed, then intervene precisely.'}];
+  (function initPremise(){
+    const v=document.getElementById('pfVideo');if(!v)return;
+    const frame=document.getElementById('pfFrame'),tap=document.getElementById('pfTap'),fill=document.getElementById('pfFill'),sub=document.getElementById('pfSub'),line=sub.firstElementChild,loopBtn=document.getElementById('pfLoop'),gifBtn=document.getElementById('pfGif');
+    let cue=-1,raf=0,touched=false,gif=null;
+    const say=()=>{const t=v.currentTime;let i=-1;for(let k=0;k<PRECISION_CUES.length;k++)if(t>=PRECISION_CUES[k].from&&t<PRECISION_CUES[k].to){i=k;break;}if(i===cue)return;cue=i;if(i>=0)line.textContent=PRECISION_CUES[i].text;sub.classList.toggle('is-on',i>=0);};
+    const tick=()=>{if(v.duration)fill.style.width=(v.currentTime/v.duration*100)+'%';say();};
+    const run=()=>{tick();raf=requestAnimationFrame(run);};
+    const sync=()=>{const on=!v.paused&&!v.ended;frame.classList.toggle('is-paused',!on&&!gif);tap.setAttribute('aria-label',on?'Pause':'Play');if(on&&!raf)run();if(!on&&raf){cancelAnimationFrame(raf);raf=0;tick();}};
+    ['play','pause','ended'].forEach(e=>v.addEventListener(e,sync));v.addEventListener('seeked',tick);
+    tap.addEventListener('click',()=>{touched=true;if(v.ended)v.currentTime=0;v.paused?v.play().catch(()=>{}):v.pause();});
+    loopBtn.addEventListener('click',()=>{v.loop=!v.loop;loopBtn.setAttribute('aria-pressed',String(v.loop));});
+    gifBtn.addEventListener('click',()=>{const on=!gif;gifBtn.setAttribute('aria-pressed',String(on));
+      if(on){v.pause();v.hidden=tap.hidden=sub.hidden=loopBtn.hidden=true;gif=document.createElement('img');gif.src='assets/precision.gif';gif.alt='Animated overview of precise intervention';frame.prepend(gif);}
+      else{gif.remove();gif=null;v.hidden=tap.hidden=sub.hidden=loopBtn.hidden=false;}sync();});
+    if('IntersectionObserver'in window)new IntersectionObserver(es=>es.forEach(e=>{if(touched||gif)return;if(e.intersectionRatio>=.5)v.play().catch(()=>{});else if(!e.isIntersecting)v.pause();}),{threshold:[0,.5]}).observe(frame);
+    tick();
+  })();
+
+  (function initComparison(){
+    const tabs=[...document.querySelectorAll('.cmp-tab')];if(!tabs.length)return;
+    document.querySelectorAll('.cmp-grid').forEach(grid=>{
+      const obs=grid.querySelector('.cmp-obs');const col=[...obs.children].findIndex(el=>el.classList.contains('need'));
+      grid.querySelectorAll('.cmp-lane').forEach(l=>{const c=l.children[col];if(c)c.classList.add('need-col');});
+    });
+    const select=i=>tabs.forEach((t,k)=>{const on=k===i;t.setAttribute('aria-selected',String(on));t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on;});
+    tabs.forEach((t,i)=>{t.addEventListener('click',()=>select(i));t.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();const j=(i+(e.key==='ArrowRight'?1:tabs.length-1))%tabs.length;select(j);tabs[j].focus();}});});
+  })();
+  const videos=[...document.querySelectorAll('video')];
+  videos.forEach(video=>video.addEventListener('play',()=>videos.forEach(other=>{if(other!==video)other.pause();})));
+  function reportSize(){if(window.parent===window)return;window.parent.postMessage({type:'mindclaw-demo-resize',height:Math.ceil(document.querySelector('.page').getBoundingClientRect().height)},'*');}
+  if('ResizeObserver'in window)new ResizeObserver(reportSize).observe(document.querySelector('.page'));
+  window.addEventListener('load',reportSize);window.addEventListener('resize',reportSize);
+})();
+</script>
+</body></html>

@@ -1,0 +1,49 @@
+WEBVTT
+
+1
+00:00:00.000 --> 00:00:07.000
+Char0 brings the toothpaste into the living room.
+
+2
+00:00:07.000 --> 00:00:15.067
+Char0 leaves the toothpaste on the coffee table.
+
+3
+00:00:15.067 --> 00:00:17.067
+Char1 enters the room while Char0 is absent.
+
+4
+00:00:17.067 --> 00:00:23.067
+Char1 picks up the toothpaste without Char0 observing the move.
+
+5
+00:00:23.067 --> 00:00:29.167
+The toothpaste moves into the cabinet; Char0’s belief remains at the table.
+
+6
+00:00:29.167 --> 00:00:31.467
+MindClaw retains the separate fact and actor-specific beliefs.
+
+7
+00:00:31.467 --> 00:00:41.667
+Char0 returns with an outdated belief about the toothpaste’s location.
+
+8
+00:00:41.667 --> 00:00:46.217
+The helper approaches the toothpaste’s actual location.
+
+9
+00:00:46.217 --> 00:00:51.217
+The helper opens the cabinet containing the relocated toothpaste.
+
+10
+00:00:51.217 --> 00:00:57.400
+The toothpaste moves from the cabinet to the helper.
+
+11
+00:00:57.400 --> 00:01:03.400
+The retrieved toothpaste is now held by the helper.
+
+12
+00:01:03.400 --> 00:01:04.900
+The next observation closes the loop by tracking the object and Char0’s response.

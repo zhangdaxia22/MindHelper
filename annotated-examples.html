@@ -1,0 +1,434 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>MindClaw · Inspectable Qualitative Examples</title><style>
+@font-face{font-family:Inter;src:url('assets/fonts/Inter.ttf') format('truetype');font-weight:100 900;font-display:swap}
+:root{color-scheme:light;--paper:#fff;--paper2:#f8fafc;--white:#fff;--ink:#172033;--muted:#657087;--line:#e2e6ed;--accent:#2563eb;--blue:#2563eb;--violet:#7c3aed;--teal:#2563eb;--coral:#2563eb}
+*{box-sizing:border-box}body{margin:0;background:transparent;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+button,select{font:inherit}button{cursor:pointer}a{color:inherit;text-underline-offset:3px}
+button:focus-visible,select:focus-visible,summary:focus-visible,video:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.demo{padding:0 2px 12px;max-width:1400px;margin:0 auto}
+.cases{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.case{display:flex;gap:12px;align-items:center;border:0;border-bottom:2px solid transparent;background:transparent;color:var(--muted);text-align:left;padding:8px 4px 12px;min-height:59px}
+.case[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}.case strong{display:block;font-size:14px;font-weight:600;margin-bottom:4px}.case small{display:block;font-size:12px;line-height:1.5}.case-num{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 16px;flex-wrap:wrap}
+.window-control{display:flex;align-items:center;gap:9px;min-width:0}.window-control label{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+select{max-width:350px;width:350px;font-size:12px;color:var(--ink);border:1px solid var(--line);border-radius:9px;background:var(--white);padding:9px 28px 9px 11px;min-height:36px}
+.controls{display:flex;gap:8px}.play,.restart{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:36px;border-radius:999px;padding:8px 15px;font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--white);color:var(--ink)}
+.play{background:var(--ink);border-color:var(--ink);color:#fff;min-width:132px}.play svg{width:11px;height:11px;fill:currentColor}.play:hover{background:#354255}.restart:hover{background:var(--paper2)}
+.workspace{display:grid;grid-template-columns:216px minmax(0,1fr);gap:20px;align-items:start}
+.rail{display:flex;flex-direction:column;gap:6px;position:sticky;top:8px}
+.stage{display:flex;gap:11px;align-items:flex-start;padding:12px 11px;border-radius:13px;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);position:relative;width:100%}
+.stage::before{content:"";position:absolute;left:25px;top:42px;bottom:-7px;width:1px;background:linear-gradient(var(--line),transparent)}.stage:last-child::before{display:none}
+.stage:hover{background:#f3f6fb}.stage[aria-selected="true"]{background:var(--white);border-color:var(--line);color:var(--ink);box-shadow:0 5px 15px -8px #0f172a14}
+.stage-num{flex:none;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--paper2)}
+.stage[aria-selected="true"] .stage-num{color:#fff;background:var(--accent);border-color:transparent}
+.stage strong{display:block;font-size:13px;font-weight:500;line-height:1.4}.stage small{display:block;font-size:10px;line-height:1.5;margin-top:3px;color:var(--muted)}
+.panel{min-width:0;border:1px solid var(--line);border-radius:19px;background:var(--white);overflow:hidden;box-shadow:0 12px 35px -23px #0f172a14}
+.panel-head{padding:15px 19px 13px;border-bottom:1px solid var(--line);background:var(--paper2)}
+.panel-meta{display:flex;justify-content:space-between;align-items:center;gap:10px;font:9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;text-transform:uppercase;color:var(--accent)}
+.panel-meta .illustrative{letter-spacing:0;text-transform:none;color:var(--muted);font-size:10px}
+.panel-head h2{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:23px;font-weight:600;line-height:1.2;letter-spacing:-.45px;margin:7px 0 0}
+.panel-body{padding:17px;display:grid;grid-template-columns:minmax(0,1.42fr) minmax(280px,1fr);gap:16px;align-items:start}
+.media{min-width:0}.film{overflow:hidden;border:1px solid var(--line);border-radius:11px;background:#fff}
+.film-head{display:flex;justify-content:space-between;gap:10px;padding:9px 11px;background:var(--paper2);color:var(--muted);font:9px ui-monospace,SFMono-Regular,Menlo,monospace;line-height:1.5}
+video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#171717}.caption{font-size:12px;line-height:1.6;margin:0;padding:11px 12px;min-height:59px}.roles{font-size:10px;line-height:1.6;color:var(--muted);margin:9px 1px 0}
+.outputs{min-width:0}.artifact{border:1px solid var(--line);border-radius:11px;background:var(--paper);overflow:hidden;margin-bottom:11px}.artifact:last-child{margin-bottom:0}
+.artifact-head{display:flex;align-items:center;gap:8px;background:var(--paper2);border-bottom:1px solid var(--line);padding:9px 11px;font:9px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.07em;line-height:1.5;text-transform:uppercase;color:var(--muted)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--teal);flex:none}.artifact[data-channel="belief"] .dot{background:var(--blue)}.artifact[data-channel="reasoning"] .dot{background:var(--violet)}.artifact[data-channel="action"] .dot{background:var(--coral)}
+.artifact-body{margin:0;padding:11px 12px;font-size:12px;line-height:1.65;white-space:pre-line;overflow-wrap:break-word}
+.timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:0 17px 15px}
+.phase{--progress:0%;position:relative;overflow:hidden;border:1px solid var(--line);border-radius:7px;background:var(--paper);color:var(--muted);padding:8px 8px 10px;text-align:left;font-size:10px;line-height:1.5}
+.phase strong{display:block;font-size:10px;font-weight:500}.phase time{font:9px ui-monospace,SFMono-Regular,Menlo,monospace}.phase[aria-current="step"]{color:var(--ink);border-color:#b9c8e8;background:#f1f5ff}.phase::after{content:"";position:absolute;left:0;bottom:0;width:var(--progress);height:2px;background:var(--accent)}
+.inspection-hint{font-size:10px;color:var(--muted);line-height:1.6;margin:11px 2px 0}.details{border-top:1px solid var(--line);margin-top:12px}.details summary{font-size:11px;color:var(--muted);padding:9px 1px;cursor:pointer}.transcript{list-style:none;padding:0;margin:0}.transcript li{border-top:1px solid #edf0f4}.transcript button{display:grid;grid-template-columns:46px 1fr;gap:12px;border:0;background:transparent;text-align:left;width:100%;padding:9px 0;font-size:11px;line-height:1.6;color:var(--ink)}.transcript time{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--muted)}
+.note{display:flex;justify-content:space-between;gap:13px;margin-top:12px;font-size:10px;line-height:1.65;color:var(--muted)}.note p{margin:0}.note a{flex:none}
+.error{font-size:12px;margin:0;padding:12px;background:#fff1e6;line-height:1.5}
+[hidden]{display:none!important}
+@media(max-width:920px){.workspace{grid-template-columns:190px minmax(0,1fr);gap:15px}.panel-body{grid-template-columns:1fr;gap:13px}.outputs{display:flex;flex-direction:column;gap:11px}.artifact{margin:0}.panel-head h2{font-size:24px}}
+@media(max-width:700px){.cases{gap:11px;margin-bottom:12px}.case{align-items:flex-start;gap:8px;padding:6px 1px 10px}.case strong{font-size:13px}.case small{font-size:11px}.toolbar{gap:9px;margin-bottom:13px}.window-control{width:100%}.window-control select{width:100%;max-width:none;min-width:0}.controls{margin-left:auto}.controls button{min-height:40px}.workspace{grid-template-columns:1fr;gap:12px}.rail{position:static;flex-direction:row;overflow-x:auto;padding-bottom:5px;gap:6px}.stage{width:auto;min-width:163px;padding:10px 8px}.stage::before{display:none}.stage strong{font-size:12px}.stage small{font-size:9px}.stage-num{width:26px;height:26px}.panel-head{padding:13px 14px}.panel-body{padding:13px;grid-template-columns:1fr}.outputs{grid-template-columns:1fr}.panel-meta{font-size:8px}.panel-head h2{font-size:23px}.timeline{gap:6px;padding:0 13px 13px;grid-template-columns:repeat(2,minmax(0,1fr))}.caption{font-size:11px}.film-head{font-size:8px}.note{flex-direction:column;gap:6px}.artifact-body{font-size:12px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+
+.outputs{display:flex;flex-direction:column;gap:11px}.outputs .artifact{margin:0}.outputs #belief-card{order:0}.outputs #input-card{order:1}.outputs #output-card{order:2}.outputs[data-stage="1"] #input-card{order:0}.outputs[data-stage="1"] #belief-card{order:1}
+.belief-card .artifact-head{justify-content:space-between;letter-spacing:0;text-transform:none;font:600 11px Inter,sans-serif;color:var(--ink)}.belief-heading{display:flex;align-items:center;gap:8px}.belief-window{color:var(--muted);font-size:9px;font-weight:400;white-space:nowrap;font-variant-numeric:tabular-nums}
+.belief-scroll{width:100%;overflow-x:auto}.belief-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px;line-height:1.55;text-align:left}.belief-table th,.belief-table td{padding:8px 7px;vertical-align:top;overflow-wrap:anywhere}.belief-table thead th{color:var(--muted);font-weight:500;background:#fff;border-bottom:1px solid var(--line)}.belief-table thead th:first-child{width:25%}.belief-table tbody td{border-right:1px solid #edf0f4}.belief-table tbody td:last-child{border-right:0}.belief-table .fact{color:#1e4285}.belief-table .changed{background:#eef3ff;box-shadow:inset 0 -2px var(--accent)}.belief-table .retained{color:#5b6575}.belief-note{margin:0;padding:7px 9px;border-top:1px solid #edf0f4;color:var(--muted);font-size:9px;line-height:1.6}.belief-card[data-example="toothpaste"] .belief-table{font-size:9px}
+@media(max-width:700px){.belief-table,.belief-card[data-example="toothpaste"] .belief-table{font-size:10px}.belief-window{font-size:9px}}
+
+.robot-status{display:flex;align-items:center;gap:8px;padding:11px 2px 0;font-size:12px;line-height:1.5;color:var(--muted)}.status-label{font-size:10px}.status-dot{width:7px;height:7px;border-radius:50%;background:#94a3b8}.robot-status strong{font-weight:600;color:#475569}.robot-status[data-state="action"] strong{color:var(--accent)}.robot-status[data-state="action"] .status-dot{background:var(--accent)}
+.note{justify-content:flex-end;margin-top:9px}.belief-table{font-size:11px}.belief-card[data-example="toothpaste"] .belief-table{font-size:10px}
+</style></head><body>
+<main class="demo" id="mindclaw-demo">
+<div class="cases" role="tablist" aria-label="Select an example">
+<button class="case" type="button" id="case-wineglass" role="tab" data-example="wineglass" aria-selected="true"><span class="case-num">01</span><span><strong>Implicit goal</strong><small>Retrieve the wineglass</small></span></button>
+<button class="case" type="button" id="case-toothpaste" role="tab" data-example="toothpaste" aria-selected="false" tabindex="-1"><span class="case-num">02</span><span><strong>False belief</strong><small>Find the relocated toothpaste</small></span></button>
+</div>
+<div class="toolbar"><div class="window-control"><label for="window-select">Window</label><select id="window-select" aria-label="Select an observation window"></select></div><div class="controls"><button class="play" id="play" type="button" aria-controls="video"><svg viewBox="0 0 20 20" aria-hidden="true"><path id="play-icon" d="M5 3l12 7-12 7z"/></svg><span id="play-label">Play example</span></button><button class="restart" id="restart" type="button" aria-controls="video">Restart</button></div></div>
+<div class="workspace">
+<nav class="rail" role="tablist" aria-label="Inspect a cognitive stage" aria-orientation="vertical">
+<button class="stage" id="stage-observation" type="button" role="tab" aria-selected="true" aria-controls="stage-panel" data-stage="0"><span class="stage-num">1</span><span><strong>Observation</strong><small>Video → observation</small></span></button>
+<button class="stage" id="stage-belief" type="button" role="tab" aria-selected="false" aria-controls="stage-panel" tabindex="-1" data-stage="1"><span class="stage-num">2</span><span><strong>Belief Table</strong><small>Observation → memory</small></span></button>
+<button class="stage" id="stage-reasoning" type="button" role="tab" aria-selected="false" aria-controls="stage-panel" tabindex="-1" data-stage="2"><span class="stage-num">3</span><span><strong>Mental Reasoning</strong><small>Observation + memory → reasoning</small></span></button>
+<button class="stage" id="stage-action" type="button" role="tab" aria-selected="false" aria-controls="stage-panel" tabindex="-1" data-stage="3"><span class="stage-num">4</span><span><strong>Action Generation</strong><small>Reasoning → action</small></span></button>
+</nav>
+<section class="panel" id="stage-panel" role="tabpanel" aria-labelledby="stage-observation">
+<header class="panel-head"><div class="panel-meta"><span id="stage-counter">Stage 1 of 4</span><span class="illustrative">Illustrative</span></div><h2 id="stage-title">Observation</h2></header>
+<div class="panel-body"><div class="media"><div class="film"><div class="film-head"><span id="scene-name">Scene context</span><span id="time">00:00 / 00:36</span></div><video id="video" controls playsinline preload="metadata" poster="assets/poster.jpg" aria-describedby="caption robot-status"><source id="source" src="assets/demo.mp4" type="video/mp4"><track id="track" kind="captions" src="assets/captions.vtt" srclang="en" label="English">Your browser does not support video.</video><p class="error" id="error" hidden>The video could not be loaded. <a id="error-download" href="assets/demo.mp4">Open the video</a>.</p><p class="caption" id="caption"></p></div><div class="robot-status" id="robot-status" data-state="silent" aria-live="polite"><span class="status-dot" aria-hidden="true"></span><span class="status-label">Robot</span><strong id="robot-status-value">Keep silent</strong></div></div>
+<div class="outputs" data-stage="0"><section class="artifact belief-card" id="belief-card" data-channel="belief" aria-label="Current Belief Table"><h3 class="artifact-head"><span class="belief-heading"><span class="dot"></span><span id="belief-title">Belief Table</span></span><span class="belief-window" id="belief-window"></span></h3><div class="belief-scroll"><table class="belief-table" aria-label="Object location and actor beliefs"><thead id="belief-head"></thead><tbody id="belief-body"></tbody></table></div><p class="belief-note" id="belief-note"></p></section><section class="artifact" id="input-card" data-channel="observation" hidden><h3 class="artifact-head"><span class="dot"></span><span id="input-label">Input · Observation</span></h3><p class="artifact-body" id="input-value"></p></section><section class="artifact" id="output-card" data-channel="observation"><h3 class="artifact-head"><span class="dot"></span><span id="output-label">Output · Observation</span></h3><p class="artifact-body" id="output-value"></p></section></div></div>
+<nav class="timeline" aria-label="Example chapters"><button class="phase" type="button" data-phase="0" aria-controls="video"><strong>Observe</strong><time>00:00</time></button><button class="phase" type="button" data-phase="1" aria-controls="video"><strong>Reason</strong><time>00:05</time></button><button class="phase" type="button" data-phase="2" aria-controls="video"><strong>Assist</strong><time>00:16</time></button><button class="phase" type="button" data-phase="3" aria-controls="video"><strong>Feedback</strong><time>00:32</time></button></nav>
+</section></div>
+<details class="details"><summary>Read the timed transcript</summary><ol class="transcript" id="transcript"></ol></details>
+<footer class="note"><a id="download" href="assets/demo.mp4" download>Download video ↗</a></footer>
+</main>
+<script>
+(() => {
+'use strict';
+const examples={
+  "wineglass": {
+    "id": "wineglass",
+    "title": "Knowing when to help.",
+    "category": "Implicit Goal Inference & Completion",
+    "intro": "A reaching attempt reveals an unmet goal. MindClaw retrieves the wineglass and brings it within the homeowner’s reach.",
+    "video": "assets/demo.mp4",
+    "poster": "assets/poster.jpg",
+    "captions": "assets/captions.vtt",
+    "duration": 36.533333,
+    "phaseStarts": [
+      0,
+      5.4,
+      16.9,
+      32.533333
+    ],
+    "chapterDescriptions": [
+      "Notice the goal cue",
+      "Infer the unmet goal",
+      "Retrieve and hand over",
+      "Observe the handover"
+    ],
+    "roles": "Homeowner: wheelchair · Helper: standing avatar",
+    "note": "Fig. 7(a) · Illustrative module annotations follow the paper example. Playback is edited; explanatory pauses and slower segments are labeled.",
+    "scenes": [
+      {
+        "phase": 0,
+        "observation": "Homeowner is seated near the counter.",
+        "belief": "Fact: wineglass on counter.\nActor belief: not yet recorded.",
+        "reasoning": "No goal has been inferred yet.",
+        "action": "Observe the scene.\nRemain silent.",
+        "caption": "The helper observes the scene and waits for evidence that assistance is needed.",
+        "time": 0.0,
+        "name": "Scene context"
+      },
+      {
+        "phase": 0,
+        "observation": "Homeowner reaches toward the wineglass.",
+        "belief": "Fact: wineglass on counter.\nActor belief: on counter.",
+        "reasoning": "The reaching attempt provides a goal cue.",
+        "action": "Update the relevant memory.\nInvoke mental reasoning.",
+        "caption": "The homeowner reaches for the wineglass but does not obtain it.",
+        "time": 3.0,
+        "name": "Reaching attempt"
+      },
+      {
+        "phase": 1,
+        "observation": "The wineglass remains beyond the attempted reach.",
+        "belief": "Fact: wineglass on counter.\nActor belief: on counter.",
+        "reasoning": "Goal: obtain the wineglass.\nObstacle: out of reach.\nAssistance: needed.",
+        "action": "Plan targeted assistance:\nretrieve the wineglass and\nhand it to the homeowner.",
+        "caption": "The unmet goal is to obtain the wineglass; the reaching attempt indicates a need for help.",
+        "time": 5.4,
+        "name": "Goal inference"
+      },
+      {
+        "phase": 1,
+        "observation": "The homeowner lowers the arm and repositions.",
+        "belief": "Fact: wineglass on counter.\nActor belief: on counter.",
+        "reasoning": "Goal: obtain the wineglass.\nThe goal is still unmet.",
+        "action": "1  Walk to the counter\n2  Pick up the wineglass\n3  Approach the homeowner\n4  Hand over the wineglass",
+        "caption": "The helper selects an action that directly addresses the inferred goal.",
+        "time": 9.9,
+        "name": "Action plan"
+      },
+      {
+        "phase": 2,
+        "observation": "The helper approaches the counter.",
+        "belief": "Fact: wineglass on counter.\nActor belief: on counter.",
+        "reasoning": "Assist with the unmet goal:\nobtain the wineglass.",
+        "action": "Current action:\nwalk to the counter.\n\nNext: pick up the wineglass.",
+        "caption": "The helper walks to the counter to retrieve the wineglass.",
+        "time": 16.9,
+        "name": "Approach the counter"
+      },
+      {
+        "phase": 2,
+        "observation": "The helper reaches for and picks up the wineglass.",
+        "belief": "Fact transition:\ncounter → held by helper.",
+        "reasoning": "Retrieve the object needed\nby the homeowner.",
+        "action": "Current action:\npick up the wineglass.\n\nNext: approach the homeowner.",
+        "caption": "The wineglass moves from the counter to the helper.",
+        "time": 20.4,
+        "name": "Pick up the wineglass"
+      },
+      {
+        "phase": 2,
+        "observation": "The helper carries the wineglass to the homeowner.",
+        "belief": "Fact: held by helper.\nActor access: object visible.",
+        "reasoning": "Bring the wineglass within\nthe homeowner’s reach.",
+        "action": "Current action:\napproach the homeowner.\n\nNext: hand over the wineglass.",
+        "caption": "The helper returns with the wineglass.",
+        "time": 22.666667,
+        "name": "Return to the homeowner"
+      },
+      {
+        "phase": 2,
+        "observation": "The helper offers the wineglass to the homeowner.",
+        "belief": "Fact: wineglass at handover.\nActor access: within reach.",
+        "reasoning": "Complete the inferred goal\nby delivering the wineglass.",
+        "action": "Current action:\nhand over the wineglass.\n\nNext: observe the result.",
+        "caption": "The helper hands the wineglass to the homeowner.",
+        "time": 25.866667,
+        "name": "Hand over the wineglass"
+      },
+      {
+        "phase": 3,
+        "observation": "The homeowner reaches out to receive the wineglass.",
+        "belief": "Fact: glass at the actor’s hand.\nActor access: within reach.",
+        "reasoning": "The observed handover\naddresses the inferred goal.",
+        "action": "Observe the handover.\nUpdate the current state.\nContinue monitoring.",
+        "caption": "The handover provides feedback for the next observation and state update.",
+        "time": 32.533333,
+        "name": "Observe the result"
+      }
+    ]
+  },
+  "toothpaste": {
+    "id": "toothpaste",
+    "title": "Remembering what others know.",
+    "category": "False-Belief Correction",
+    "intro": "MindClaw preserves Char0’s earlier belief while tracking the toothpaste’s move from the table to a cabinet.",
+    "video": "assets/toothpaste.mp4",
+    "poster": "assets/toothpaste-poster.jpg",
+    "captions": "assets/toothpaste-captions.vtt",
+    "duration": 64.9,
+    "phaseStarts": [
+      0,
+      31.467,
+      41.667,
+      57.4
+    ],
+    "chapterDescriptions": [
+      "Track who knows what",
+      "Identify the stale belief",
+      "Retrieve from the cabinet",
+      "Track the retrieved object"
+    ],
+    "roles": "Char0: blue suit · Char1: green top · Helper: red dress",
+    "note": "Fig. 7(b) · Illustrative module annotations follow the paper and visible sequence. Playback is edited; omitted waiting intervals, speed changes and explanatory pauses are labeled.",
+    "scenes": [
+      {
+        "time": 0,
+        "phase": 0,
+        "name": "Initial possession",
+        "observation": "Char0 enters the living room carrying the toothpaste.",
+        "belief": "Fact: held by Char0.\nChar0: held by self.",
+        "reasoning": "Track the object and its holder.",
+        "action": "Record the observed state.\nRemain silent.",
+        "caption": "Char0 brings the toothpaste into the living room."
+      },
+      {
+        "time": 7,
+        "phase": 0,
+        "name": "Original location",
+        "observation": "Char0 puts the toothpaste on the coffee table and leaves.",
+        "belief": "Fact: coffee table.\nChar0: coffee table.",
+        "reasoning": "The object is at the location known to Char0.",
+        "action": "Update the visual fact and\nChar0’s belief. Remain silent.",
+        "caption": "Char0 leaves the toothpaste on the coffee table."
+      },
+      {
+        "time": 15.067,
+        "phase": 0,
+        "name": "Another actor arrives",
+        "observation": "Char1 enters while Char0 is away. The toothpaste remains on the table.",
+        "belief": "Fact: coffee table.\nChar0: coffee table.",
+        "reasoning": "Preserve Char0’s last observed location.",
+        "action": "Observe Char1’s interaction\nwith the toothpaste.",
+        "caption": "Char1 enters the room while Char0 is absent."
+      },
+      {
+        "time": 17.067,
+        "phase": 0,
+        "name": "Pickup by Char1",
+        "observation": "Char1 picks up the toothpaste and carries it toward the cabinet.",
+        "belief": "Fact: held by Char1.\nChar0: coffee table.\nChar1: held by self.",
+        "reasoning": "Char0 has not observed this change.",
+        "action": "Update the current fact and\nChar1’s belief.",
+        "caption": "Char1 picks up the toothpaste without Char0 observing the move."
+      },
+      {
+        "time": 23.067,
+        "phase": 0,
+        "name": "Hidden relocation",
+        "observation": "Char1 opens the cabinet and puts the toothpaste inside.",
+        "belief": "Fact: cabinet.\nChar0: coffee table.\nChar1: cabinet.",
+        "reasoning": "Char0 retains the earlier belief while the physical location changes.",
+        "action": "Record the new location.\nContinue observing.",
+        "caption": "The toothpaste moves into the cabinet; Char0’s belief remains at the table."
+      },
+      {
+        "time": 29.167,
+        "phase": 0,
+        "name": "Belief persistence",
+        "observation": "Char1 leaves; the toothpaste stays in the closed cabinet.",
+        "belief": "Fact: cabinet.\nChar0: coffee table.\nChar1: cabinet.",
+        "reasoning": "Maintain the difference between current fact and Char0’s belief.",
+        "action": "Remain silent and monitor\nthe next relevant event.",
+        "caption": "MindClaw retains the separate fact and actor-specific beliefs."
+      },
+      {
+        "time": 31.467,
+        "phase": 1,
+        "name": "Char0 returns",
+        "observation": "Char0 returns to the room and moves around the original table area.",
+        "belief": "Fact: cabinet.\nChar0: coffee table.\nChar1: cabinet.",
+        "reasoning": "Goal: find the toothpaste.\nBelief: still on the table.\nThe stale belief obstructs the search.",
+        "action": "Invoke mental reasoning.\nPlan retrieval from the cabinet.",
+        "caption": "Char0 returns with an outdated belief about the toothpaste’s location."
+      },
+      {
+        "time": 41.667,
+        "phase": 2,
+        "name": "Helper approaches",
+        "observation": "The helper enters and approaches the cabinet.",
+        "belief": "Fact: cabinet.\nChar0: coffee table.",
+        "reasoning": "Retrieve the object from its current location to assist Char0.",
+        "action": "Walk to the cabinet.\nOpen it and retrieve the toothpaste.",
+        "caption": "The helper approaches the toothpaste’s actual location."
+      },
+      {
+        "time": 46.217,
+        "phase": 2,
+        "name": "Open the cabinet",
+        "observation": "The helper opens the cabinet and reaches toward the toothpaste.",
+        "belief": "Fact: cabinet.\nChar0: coffee table.",
+        "reasoning": "Target the object whose relocation caused the false belief.",
+        "action": "Open the cabinet.\nRetrieve the toothpaste.",
+        "caption": "The helper opens the cabinet containing the relocated toothpaste."
+      },
+      {
+        "time": 51.217,
+        "phase": 2,
+        "name": "Retrieve the toothpaste",
+        "observation": "The helper takes the toothpaste out of the cabinet.",
+        "belief": "Fact: held by helper.\nChar0: prior belief was coffee table.",
+        "reasoning": "Recover the object from its actual location to assist Char0.",
+        "action": "Carry the retrieved toothpaste\naway from the cabinet.",
+        "caption": "The toothpaste moves from the cabinet to the helper."
+      },
+      {
+        "time": 57.4,
+        "phase": 3,
+        "name": "Observe the retrieved object",
+        "observation": "The helper carries the toothpaste away from the cabinet.",
+        "belief": "Fact: held by helper.\nChar0: prior belief was coffee table.",
+        "reasoning": "The toothpaste has been recovered from its relocated position.",
+        "action": "Track the retrieved object.\nContinue observing Char0.",
+        "caption": "The retrieved toothpaste is now held by the helper."
+      },
+      {
+        "time": 63.4,
+        "phase": 3,
+        "name": "Continue monitoring",
+        "observation": "Char0 remains near the table as the helper leaves the camera view.",
+        "belief": "Last observed fact: held by helper.\nChar0’s prior belief: coffee table.",
+        "reasoning": "Use the next observation to track delivery and the actor’s response.",
+        "action": "Continue monitoring\nthe object and Char0.",
+        "caption": "The next observation closes the loop by tracking the object and Char0’s response."
+      }
+    ]
+  }
+};
+
+const beliefSnapshots={
+  wineglass:{headers:['Object','Visual Fact','Homeowner'],rows:[
+    ['Wineglass','Counter','—'],
+    ['Wineglass','Counter','Counter'],
+    ['Wineglass','Counter','Counter'],
+    ['Wineglass','Counter','Counter'],
+    ['Wineglass','Counter','Counter'],
+    ['Wineglass','Held by helper','Counter (last recorded)'],
+    ['Wineglass','Held by helper','Counter (last recorded)'],
+    ['Wineglass','At handover','Counter (last recorded)'],
+    ['Wineglass','At homeowner’s hand','Counter (last recorded)']
+  ],notes:[
+    'Homeowner belief not yet recorded.',
+    'Homeowner reaches for the wineglass.',
+    'The wineglass remains on the counter.',
+    'The wineglass remains on the counter.',
+    'The wineglass remains on the counter.',
+    'Visual fact: counter → held by helper.',
+    'Homeowner access: object visible.',
+    'Homeowner access: within reach.',
+    'Homeowner access: within reach.'
+  ]},
+  toothpaste:{headers:['Object','Visual Fact','Char0','Char1'],rows:[
+    ['Toothpaste','Held by Char0','Held by self','—'],
+    ['Toothpaste','Coffee table','Coffee table','—'],
+    ['Toothpaste','Coffee table','Coffee table','—'],
+    ['Toothpaste','Held by Char1','Coffee table','Held by self'],
+    ['Toothpaste','Cabinet','Coffee table','Cabinet'],
+    ['Toothpaste','Cabinet','Coffee table','Cabinet'],
+    ['Toothpaste','Cabinet','Coffee table','Cabinet'],
+    ['Toothpaste','Cabinet','Coffee table','Cabinet'],
+    ['Toothpaste','Cabinet','Coffee table','Cabinet'],
+    ['Toothpaste','Held by helper','Coffee table (last recorded)','Cabinet'],
+    ['Toothpaste','Held by helper','Coffee table (last recorded)','Cabinet'],
+    ['Toothpaste','Held by helper (last observed)','Coffee table (last recorded)','Cabinet']
+  ],notes:[
+    'Char1 belief not yet recorded.',
+    'Char0’s recorded location: coffee table.',
+    'Char0 is away; retain the recorded belief.',
+    'Char0 does not observe the pickup.',
+    'Char0 does not observe the relocation.',
+    'Actor beliefs persist after Char1 leaves.',
+    'Char0’s belief differs from the current fact.',
+    'Retain the actor beliefs while the helper approaches.',
+    'The toothpaste is still inside the cabinet.',
+    'Visual fact: cabinet → held by helper.',
+    'Track the object held by the helper.',
+    'Retain the last observed state.'
+  ]}
+};
+const stageDefs=[{name:'Observation',key:'observation',input:null,inputName:null,channel:'observation'},{name:'Belief Table',key:'belief',input:'observation',inputName:'Observation',channel:'belief'},{name:'Mental Reasoning',key:'reasoning',input:'belief',inputName:'Observation + Belief Table',channel:'reasoning'},{name:'Action Generation',key:'action',input:'reasoning',inputName:'Mental Reasoning',channel:'action'}];
+const phaseNames=['Observe','Reason','Assist','Feedback'];
+const robotStates={wineglass:['silent','silent','silent','silent','action','action','action','action','silent'],toothpaste:['silent','silent','silent','silent','silent','silent','silent','action','action','action','action','silent']};
+const video=document.getElementById('video');const caseTabs=[...document.querySelectorAll('.case')];const stageTabs=[...document.querySelectorAll('.stage')];const phases=[...document.querySelectorAll('.phase')];const windowSelect=document.getElementById('window-select');
+let example=examples.wineglass,selectedStage=0,activeScene=-1,pendingSeek=null,revision=0;
+function formatTime(value){const n=Math.max(0,Math.floor(value));return `${String(Math.floor(n/60)).padStart(2,'0')}:${String(n%60).padStart(2,'0')}`;}
+function currentScene(){let i=0;const t=video.currentTime||0;for(let j=0;j<example.scenes.length;j++)if(t+.005>=example.scenes[j].time)i=j;return {index:i,scene:example.scenes[i]};}
+function renderBelief(index){
+const data=beliefSnapshots[example.id],row=data.rows[index],previous=index>0?data.rows[index-1]:null;const stateValue=value=>value.replace(/ \(last (?:recorded|observed)\)/g,'');
+const head=document.getElementById('belief-head'),body=document.getElementById('belief-body');head.replaceChildren();body.replaceChildren();
+const hr=document.createElement('tr');data.headers.forEach(label=>{const th=document.createElement('th');th.scope='col';th.textContent=label;hr.append(th);});head.append(hr);
+const tr=document.createElement('tr');row.forEach((value,column)=>{const cell=document.createElement('td');cell.textContent=value;if(column===1)cell.classList.add('fact');if(column>0&&previous&&stateValue(value)!==stateValue(previous[column]))cell.classList.add('changed');if(column>1&&previous&&stateValue(value)===stateValue(previous[column]))cell.classList.add('retained');tr.append(cell);});body.append(tr);
+const scene=example.scenes[index],end=example.scenes[index+1]?.time??example.duration;document.getElementById('belief-window').textContent=`W${String(index+1).padStart(2,'0')} · ${formatTime(scene.time)}–${formatTime(end)}`;
+document.getElementById('belief-note').textContent=data.notes[index];document.getElementById('belief-card').dataset.example=example.id;reportSize();
+}
+function beliefText(index){const data=beliefSnapshots[example.id];return data.headers.slice(1).map((label,i)=>`${label}: ${data.rows[index][i+1]}`).join('\n');}
+function renderStage(){const {index,scene}=currentScene();const def=stageDefs[selectedStage];document.querySelector('.outputs').dataset.stage=String(selectedStage);document.getElementById('output-card').hidden=selectedStage===1;document.getElementById('belief-title').textContent=selectedStage===1?'Output · Belief Table':'Belief Table';renderBelief(index);document.getElementById('stage-title').textContent=def.name;document.getElementById('stage-counter').textContent=`Stage ${selectedStage+1} of 4`;
+stageTabs.forEach((tab,i)=>{const selected=i===selectedStage;tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;});document.getElementById('stage-panel').setAttribute('aria-labelledby',stageTabs[selectedStage].id);
+const inputCard=document.getElementById('input-card');inputCard.hidden=!def.input;if(def.input){document.getElementById('input-label').textContent=`Input · ${def.inputName}`;document.getElementById('input-value').textContent=selectedStage===2?scene.observation+'\n\n'+beliefText(index):scene[def.input];inputCard.dataset.channel=def.input;}
+document.getElementById('output-label').textContent=`Output · ${def.key==='action'?'Trigger / Action':def.name}`;document.getElementById('output-value').textContent=scene[def.key];document.getElementById('output-card').dataset.channel=def.channel;reportSize();}
+function update(){const {index,scene}=currentScene();const t=video.currentTime||0;if(index!==activeScene){activeScene=index;windowSelect.value=String(index);document.getElementById('scene-name').textContent=`${phaseNames[scene.phase]} · ${scene.name}`;document.getElementById('caption').textContent=scene.caption;const robotState=robotStates[example.id][index];document.getElementById('robot-status').dataset.state=robotState;document.getElementById('robot-status-value').textContent=robotState==='action'?'Take action':'Keep silent';renderStage();}
+phases.forEach((button,i)=>{if(i===scene.phase)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');const end=example.phaseStarts[i+1]??example.duration;button.style.setProperty('--progress',`${Math.max(0,Math.min(100,(t-example.phaseStarts[i])/(end-example.phaseStarts[i])*100))}%`);});document.getElementById('time').textContent=`${formatTime(t)} / ${formatTime(video.duration||example.duration)}`;}
+function updatePlay(){const playing=!video.paused&&!video.ended;document.getElementById('play-label').textContent=playing?'Pause example':video.ended?'Replay example':'Play example';document.getElementById('play-icon').setAttribute('d',playing?'M4 3h4v14H4zM12 3h4v14h-4z':'M5 3l12 7-12 7z');}
+async function start(){const r=revision;try{await video.play();}catch{if(r===revision)updatePlay();}}
+function seekTo(time,shouldPlay=!video.paused&&!video.ended){video.pause();if(video.readyState<1){pendingSeek={time,shouldPlay};video.load();return;}video.currentTime=Math.min(time,Math.max(0,video.duration-.04));update();if(shouldPlay)start();}
+function selectStage(i){selectedStage=i;renderStage();updatePlay();}
+function selectExample(id){if(!examples[id])return;revision++;video.pause();pendingSeek=null;example=examples[id];activeScene=-1;selectedStage=0;caseTabs.forEach(tab=>{const selected=tab.dataset.example===id;tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;});
+windowSelect.replaceChildren();example.scenes.forEach((scene,i)=>{const option=document.createElement('option');option.value=String(i);option.textContent=`${formatTime(scene.time)} · ${scene.name}`;windowSelect.append(option);});phases.forEach((button,i)=>button.querySelector('time').textContent=formatTime(example.phaseStarts[i]));
+video.poster=example.poster;video.setAttribute('aria-label',`MindClaw ${example.category} example`);document.getElementById('source').src=example.video;document.getElementById('track').src=example.captions;document.getElementById('error').hidden=true;document.getElementById('error-download').href=example.video;const download=document.getElementById('download');download.href=example.video;download.download=`mindclaw-${id}-demo.mp4`;
+const transcript=document.getElementById('transcript');transcript.replaceChildren();example.scenes.forEach(scene=>{const li=document.createElement('li'),button=document.createElement('button'),time=document.createElement('time'),caption=document.createElement('span');button.type='button';time.textContent=formatTime(scene.time);caption.textContent=scene.caption;button.append(time,caption);button.addEventListener('click',()=>seekTo(scene.time+.02));li.append(button);transcript.append(li);});video.load();update();renderStage();updatePlay();reportSize();}
+function keyboardTabs(tabs,i,event,select){let next;if(event.key==='ArrowRight'||event.key==='ArrowDown')next=(i+1)%tabs.length;if(event.key==='ArrowLeft'||event.key==='ArrowUp')next=(i+tabs.length-1)%tabs.length;if(event.key==='Home')next=0;if(event.key==='End')next=tabs.length-1;if(next!==undefined){event.preventDefault();select(next);tabs[next].focus();}}
+caseTabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectExample(tab.dataset.example));tab.addEventListener('keydown',event=>keyboardTabs(caseTabs,i,event,j=>selectExample(caseTabs[j].dataset.example)));});stageTabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectStage(i));tab.addEventListener('keydown',event=>keyboardTabs(stageTabs,i,event,selectStage));});windowSelect.addEventListener('change',()=>seekTo(example.scenes[Number(windowSelect.value)].time+.02));phases.forEach((button,i)=>button.addEventListener('click',()=>seekTo(example.phaseStarts[i]+.02)));
+document.getElementById('play').addEventListener('click',()=>{if(video.paused||video.ended){if(video.ended)video.currentTime=0;start();}else video.pause();});document.getElementById('restart').addEventListener('click',()=>seekTo(0,true));
+let playbackFrame=null;function followPlayback(){update();if(!video.paused&&!video.ended)playbackFrame=requestAnimationFrame(followPlayback);else playbackFrame=null;}video.addEventListener('play',()=>{if(playbackFrame===null)playbackFrame=requestAnimationFrame(followPlayback);});video.addEventListener('pause',()=>{if(playbackFrame!==null)cancelAnimationFrame(playbackFrame);playbackFrame=null;update();});
+video.addEventListener('loadedmetadata',()=>{if(pendingSeek){const p=pendingSeek;pendingSeek=null;seekTo(p.time,p.shouldPlay);}update();});['timeupdate','seeked','loadeddata','ended'].forEach(name=>video.addEventListener(name,update));['play','pause','ended'].forEach(name=>video.addEventListener(name,updatePlay));video.addEventListener('error',()=>document.getElementById('error').hidden=false);
+function reportSize(){if(window.parent===window)return;window.parent.postMessage({type:'mindclaw-demo-resize',height:Math.ceil(document.querySelector('.demo').getBoundingClientRect().height)},'*');}if('ResizeObserver'in window)new ResizeObserver(reportSize).observe(document.querySelector('.demo'));window.addEventListener('load',reportSize);window.addEventListener('resize',reportSize);
+selectExample(new URLSearchParams(location.search).get('example')||'wineglass');
+})();
+</script></body></html>
