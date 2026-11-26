@@ -22,9 +22,9 @@ h1{font-size:clamp(29px,3.1vw,45px);font-weight:800;line-height:1.15;letter-spac
 sup{font-size:10px;margin-left:2px;color:var(--muted)}
 .affiliations{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 23px;font-size:13px;line-height:1.5;color:var(--muted)}
 .corresponding{font-size:11px;color:var(--muted);margin:6px 0 0}
-.paper-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:19px;font-size:13px;font-weight:600}
-.paper-nav a{display:inline-flex;align-items:center;justify-content:center;padding:9px 18px;border:1px solid #d8dee8;border-radius:999px;text-decoration:none;background:#fff;color:#344056;min-height:38px;transition:background .15s,border-color .15s}
-.paper-nav a:hover{background:#eef3ff;border-color:#b9c8e8}.paper-nav .paper-link{color:#fff;background:#0f172a;border-color:#0f172a;box-shadow:0 2px 6px #0f172a14}.paper-nav .paper-link:hover{background:#28364c;border-color:#28364c}
+.paper-resources{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:19px;font-size:13px;font-weight:600}
+.paper-resources a{display:inline-flex;align-items:center;justify-content:center;padding:9px 18px;border:1px solid #d8dee8;border-radius:999px;text-decoration:none;background:#fff;color:#344056;min-height:38px;transition:background .15s,border-color .15s}
+.paper-resources a:hover{background:#eef3ff;border-color:#b9c8e8}.paper-resources .paper-link{color:#fff;background:#0f172a;border-color:#0f172a;box-shadow:0 2px 6px #0f172a14}.paper-resources .paper-link:hover{background:#28364c;border-color:#28364c}
 h2{font-size:27px;font-weight:700;line-height:1.3;letter-spacing:-.5px;margin:0 0 18px;border-left:4px solid var(--accent);padding-left:14px}
 p{font-size:15px;line-height:1.8;margin:0;color:#475569}
 .videos{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 5px 20px #0f172a06;padding:20px 20px 10px;margin:0}
@@ -53,8 +53,8 @@ abbr{text-decoration:none;cursor:help}
 .table-note{font-size:11px;line-height:1.7;margin-top:12px;color:var(--muted)}
 footer{border-top:1px solid var(--line);margin-top:36px;padding-top:17px;display:flex;justify-content:space-between;gap:16px;font-size:11px;line-height:1.6;color:var(--muted)}footer a{color:var(--muted);text-decoration:none}footer a:hover{text-decoration:underline}
 .embed .page{padding:22px 8px 18px}
-@media(max-width:760px){.page{padding:25px 16px}h1{font-size:29px;letter-spacing:-.65px;line-height:1.19;margin-bottom:17px}.authors{font-size:14px;gap:5px 14px}.affiliations{font-size:11px;gap:4px 12px}.corresponding{font-size:10px}.paper-nav{font-size:12px;gap:8px;margin-top:16px}.paper-nav a{padding:8px 13px;min-height:35px}.paper-header{padding-bottom:21px}h2{font-size:23px;margin-bottom:15px}p{font-size:14px}.videos{padding:15px 11px 6px;border-radius:12px}.videos h2{font-size:20px}.overview{padding-top:29px}.overview section+section{margin-top:29px}.experiments{padding-top:29px}.dataset-facts,.tasks{font-size:12px}.dataset-figure,.method-figure{padding:5px;border-radius:12px}.table-note{font-size:10px}footer{margin-top:28px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.paper-nav a{transition:none}}
+@media(max-width:760px){.page{padding:25px 16px}h1{font-size:29px;letter-spacing:-.65px;line-height:1.19;margin-bottom:17px}.authors{font-size:14px;gap:5px 14px}.affiliations{font-size:11px;gap:4px 12px}.corresponding{font-size:10px}.paper-resources{font-size:12px;gap:8px;margin-top:16px}.paper-resources a{padding:8px 13px;min-height:35px}.paper-header{padding-bottom:21px}h2{font-size:23px;margin-bottom:15px}p{font-size:14px}.videos{padding:15px 11px 6px;border-radius:12px}.videos h2{font-size:20px}.overview{padding-top:29px}.overview section+section{margin-top:29px}.experiments{padding-top:29px}.dataset-facts,.tasks{font-size:12px}.dataset-figure,.method-figure{padding:5px;border-radius:12px}.table-note{font-size:10px}footer{margin-top:28px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.paper-resources a{transition:none}}
 
 .premise{margin:0 0 28px}
 .pf-cap{font-size:16px;line-height:1.7;color:#334155;margin:0 0 14px;max-width:880px}.pf-cap em{font-style:normal;color:var(--accent);font-weight:600}
@@ -113,6 +113,12 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding-top:17px;display
 .cmp-note{font-size:13px;line-height:1.75;color:#475569;margin:14px 2px 0}.cmp-note b{color:var(--ink)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media(max-width:760px){.cmp-card{padding:10px}.cmp-tab{font-size:12px;padding:8px 12px}}
+
+.paper-resources a{gap:8px}.resource-icon{display:block;flex:none;width:18px;height:18px}.hf-icon{width:21px;height:23px;line-height:23px;font-size:21px;font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif}
+.paper-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-top:15px;font-size:13px;line-height:1.6;font-weight:500}
+.paper-nav a{display:inline-block;padding:3px 0;color:var(--muted);text-decoration:none}.paper-nav a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:5px}
+.dataset-facts a{display:inline-flex;align-items:center;gap:6px;text-decoration:none}.dataset-facts a:hover{text-decoration:underline}.dataset-facts .hf-icon{width:16px;height:17px;line-height:17px;font-size:16px}
+@media(max-width:760px){.paper-nav{gap:7px 17px;margin-top:13px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -122,7 +128,8 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding-top:17px;display
   <div class="authors"><span>Ruoxuan Zhang<sup>1</sup></span> <span>Zhengguang Wang<sup>1</sup></span> <span>Qiaoqiao Wan<sup>1</sup></span> <span>Chenghao Yu<sup>1</sup></span> <span>Hongxia Xie<sup>1</sup></span> <span>Wen-Huang Cheng<sup>2</sup></span> <span>Jianlong Fu<sup>3</sup></span></div>
   <div class="affiliations"><span><sup>1</sup> Jilin University</span><span><sup>2</sup> National Taiwan University</span><span><sup>3</sup> Microsoft Asia</span></div>
   <p class="corresponding">Corresponding author: Hongxia Xie.</p>
-  <nav class="paper-nav" aria-label="Paper sections"><a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener">Paper ↗</a><a href="#premise">Overview</a><a href="#dataset">Dataset</a><a href="#method">Method</a><a href="#experiments">Experiments</a><a href="#comparison">Comparison</a><a href="#videos">Example</a></nav>
+  <nav class="paper-resources" aria-label="Paper resources"><a class="paper-link" href="assets/paper.pdf" target="_blank" rel="noopener"><svg class="resource-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h6"/></svg><span>Paper</span></a><a href="https://huggingface.co/datasets/RUOXUAN123/Mindhelper" target="_blank" rel="noopener noreferrer"><span class="resource-icon hf-icon" aria-hidden="true">🤗</span><span>Hugging Face</span></a></nav>
+  <nav class="paper-nav" aria-label="Page sections"><a href="#premise">Overview</a><a href="#dataset">Dataset</a><a href="#method">Method</a><a href="#experiments">Experiments</a><a href="#comparison">Comparison</a><a href="#videos">Example</a></nav>
 </header>
 <section class="premise" id="premise" aria-labelledby="premise-title">
   <h2 id="premise-title">What is precise intervention?</h2>
@@ -142,7 +149,7 @@ footer{border-top:1px solid var(--line);margin-top:36px;padding-top:17px;display
   <section id="dataset" aria-labelledby="dataset-title">
     <h2 id="dataset-title">MindHelper Benchmark</h2>
     <p>We introduce the MindHelper Benchmark, a benchmark for evaluating closed-loop precision intervention in embodied environments.</p>
-    <ul class="dataset-facts"><li><strong>590</strong> examples</li><li>VirtualHome</li><li>ThreeDWorld</li></ul>
+    <ul class="dataset-facts"><li><strong>590</strong> examples</li><li>VirtualHome</li><li>ThreeDWorld</li><li><a href="https://huggingface.co/datasets/RUOXUAN123/Mindhelper" target="_blank" rel="noopener noreferrer"><span class="resource-icon hf-icon" aria-hidden="true">🤗</span><span>Hugging Face</span></a></li></ul>
     <ul class="tasks"><li>False-Belief Correction</li><li>Implicit Goal Inference &amp; Completion</li></ul>
     <figure class="dataset-figure"><a href="assets/dataset-example.png" target="_blank" rel="noopener"><img src="assets/dataset-example.png" alt="An example from MindHelper Benchmark." width="2200" height="1352"></a><figcaption>Fig. 2: An example from MindHelper Benchmark.</figcaption></figure>
   </section>
